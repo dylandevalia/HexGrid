@@ -1,0 +1,92 @@
+﻿using UnityEngine;
+
+public static class HexMetrics {
+
+	public const float OUTER_RADIUS = 10f;
+	public const float INNER_RADIUS = OUTER_RADIUS * 0.866025404f;
+
+	private static readonly Vector3[] CORNERS = {
+		new Vector3(0f, 0f, OUTER_RADIUS),
+		new Vector3(INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS),
+		new Vector3(INNER_RADIUS, 0f, -0.5f * OUTER_RADIUS),
+		new Vector3(0f, 0f, -OUTER_RADIUS),
+		new Vector3(-INNER_RADIUS, 0f, -0.5f * OUTER_RADIUS),
+		new Vector3(-INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS),
+		new Vector3(0f, 0f, OUTER_RADIUS)
+	};
+
+	public const int CHUNK_SIZE_X = 5;
+	public const int CHUNK_SIZE_Z = 5;
+	
+	public const float SOLID_FACTOR = 0.8f;
+	public const float BLEND_FACTOR = 1f - SOLID_FACTOR;
+
+	public const float ELEVATION_STEP = 3f;
+
+	public const int TERRACES_PER_SLOPE = 2;
+	public const int TERRACE_STEPS = TERRACES_PER_SLOPE * 2 + 1;
+
+	public const float HORIZONTAL_TERRACE_STEP_SIZE = 1f / TERRACE_STEPS;
+	public const float VERTICAL_TERRACE_STEP_SIZE = 1f / (TERRACES_PER_SLOPE + 1);
+
+	public static Texture2D noiseSource;
+	
+	public const float CELL_PERTURB_STRENGTH = 4f;
+	public const float NOISE_SCALE = 0.003f;
+	public const float ELEVATION_PERTURB_STRENGTH = 1.5f;
+
+	public static Vector3 GetFirstCorner(HexDirection direction) {
+		return CORNERS[(int)direction];
+	}
+
+	public static Vector3 GetSecondCorner(HexDirection direction) {
+		return CORNERS[(int)direction + 1];
+	}
+
+	public static Vector3 GetFirstSolidCorner(HexDirection direction) {
+		return GetFirstCorner(direction) * SOLID_FACTOR;
+	}
+
+	public static Vector3 GetSecondSolidCorner(HexDirection direction) {
+		return GetSecondCorner(direction) * SOLID_FACTOR;
+	}
+
+	public static Vector3 GetBridge(HexDirection direction) {
+		return
+			(GetFirstCorner(direction) + GetSecondCorner(direction))
+			* BLEND_FACTOR;
+	}
+
+	public static Vector3 TerraceLerp(Vector3 a, Vector3 b, int step) {
+		float h = step * HORIZONTAL_TERRACE_STEP_SIZE;
+		a.x += (b.x - a.x) * h;
+		a.z += (b.z - a.z) * h;
+		float v = ((step + 1) / 2) * VERTICAL_TERRACE_STEP_SIZE;
+		a.y += (b.y - a.y) * v;
+		return a;
+	}
+
+	public static Color TerraceLerp(Color a, Color b, int step) {
+		float h = step * HORIZONTAL_TERRACE_STEP_SIZE;
+		return Color.Lerp(a, b, h);
+	}
+
+	public static HexEdgeType GetEdgeType(int elevation1, int elevation2) {
+		if (elevation1 == elevation2) {
+			return HexEdgeType.Flat;
+		}
+
+		int delta = elevation2 - elevation1;
+		if (delta == 1 || delta == -1) {
+			return HexEdgeType.Slope;
+		}
+		return HexEdgeType.Cliff;
+	}
+
+	public static Vector4 SampleNoise(Vector3 position) {
+		return noiseSource.GetPixelBilinear(
+			position.x * NOISE_SCALE,
+			position.z * NOISE_SCALE
+		);
+	}
+}

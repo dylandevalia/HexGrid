@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Dylan\.Rider2017.2\system\resharper-host\local\Transient\ReSharperHost\v10\SolutionCaches\_HexGrid.-458535801.00" t="ExcludeRecursive" />
+    <e p="D:\Users\Dylan\Unity\HexGrid" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="HexCoordinatesDrawer.cs" t="Include" />
+        </e>
+        <e p="Plugins" t="Include">
+          <e p="Editor" t="Include">
+            <e p="JetBrains" t="Include">
+              <e p="Unity3DRider.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="EdgeVertices.cs" t="Include" />
+          <e p="Enums" t="Include">
+            <e p="HexDirection.cs" t="Include" />
+            <e p="HexEdgeShape.cs" t="Include" />
+          </e>
+          <e p="Grid.cs" t="Include" />
+          <e p="HexCell.cs" t="Include" />
+          <e p="HexCoordinates.cs" t="Include" />
+          <e p="HexGrid.cs" t="Include" />
+          <e p="HexGridChunk.cs" t="Include" />
+          <e p="HexMapCamera.cs" t="Include" />
+          <e p="HexMapEditor.cs" t="Include" />
+          <e p="HexMesh.cs" t="Include" />
+          <e p="HexMetrics.cs" t="Include" />
+        </e>
+        <e p="Shaders" t="Include">
+          <e p="VertexColors.shader" t="Include" />
+        </e>
+      </e>
+      <e p="HexGrid.sln" t="IncludeFlat" />
+      <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="Temp" t="ExcludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+      </e>
+    </e>
+  </component>
+</project>
